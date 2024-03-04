@@ -1,0 +1,3 @@
+The four hcl files (two for nomad and consul servers and two for nomad and consul clients) are stored here. This is redundant with having them in install_and_run_nomad_consul_server.sh and install nomad_consul_client.sh.
+
+It allows more clarity about what these files look like. A later goal could be to have them written here and to copy their content within the install files by the GitLab pipelines during the provisioning steps. That way updating them would be more straightforward and simple.
