@@ -1,0 +1,48 @@
+# Version must be at least 3.4 to use target option.
+# Version 3.8 raises an error.
+version: '3.7'
+
+services:
+  hrwsi_server_container:
+    image: postgrest/postgrest
+    container_name: hrwsi_server_container
+    ports:
+      - "3000:3000"
+    links:
+      - hrwsi_db_container:db_container
+    environment:
+      PGRST_DB_URI: redacted://redacted:redacted@db_container:5432/hrwsi_db
+      PGRST_DB_SCHEMA: hrwsi
+      PGRST_DB_ANON_ROLE: web_anonymous
+    networks:
+      - HRWSI_Database_network
+
+  hrwsi_db_container:
+    image: hrwsi-database-prod:latest
+    container_name: HRWSI_Database_container
+    build:
+      context: "."
+      target: "base"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hrwsi_db
+      POSTGRES_USER: redacted
+      POSTGRES_PASSWORD: redacted
+    networks:
+      - HRWSI_Database_network
+
+networks:
+  HRWSI_Database_network:
+    driver: bridge
+  # overload default values to be able to start database with VPN running,
+  #  comes from conflicts happening between VPN and docker-compose
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+    

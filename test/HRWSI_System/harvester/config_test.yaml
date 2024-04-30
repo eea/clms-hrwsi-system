@@ -1,0 +1,64 @@
+processing_condition_list: ["TURB_PC",
+                             "CHLA_PC",
+                             "SPM_PC",
+                             "OWT_PC",
+                             "TSI_PC"]
+
+tile_list: ["T08XMR",
+             "T08XNR",
+             "T32TMQ",
+             "T31TGK"]
+
+mission: "S2"
+input_type: "L2A"
+start_date: "2024-01-01 00:00:00"
+end_date: "2024-01-31 23:59:59"
+
+wekeo_api_data_page_1: {'@odata.context': '$metadata#Products',
+                'value': 
+                [{'@odata.mediaContentType': 'application/octet-stream',
+                'Id': '0090a5cb-98bf-523f-80c8-186f358e0414', 
+                'Name': 'S2A_MSIL1C_20220503T105621_N0400_R094_T31UDQ_20220503T130002.SAFE', 
+                'ContentType': 'application/octet-stream', 
+                'ContentLength': 0, 
+                'OriginDate': '2022-05-03T17:31:33.614Z', 
+                'PublicationDate': '2022-05-03T17:36:19.524Z',
+                'ModificationDate': '2022-05-03T17:36:19.524Z',
+                'Online': True,
+                'EvictionDate': '', 
+                'S3Path': '/eodata/Sentinel-2/MSI/L1C/2022/05/03/S2A_MSIL1C_20220503T105621_N0400_R094_T31UDQ_20220503T130002.SAFE', 
+                'Checksum': [], 
+                'ContentDate': {'Start': '2022-05-03T10:56:21.024Z', 'End': '2022-05-03T10:56:21.024Z'}, 
+                'Footprint': "geography'SRID=4326;POLYGON ((2.9727370636111 49.651766419347, 1.6142723681857 49.644430073461, 1.6415462250802 48.657020775058, 2.5048211785032 48.661614688744, 2.5585517480359 48.776808709002, 2.6265410270281 48.921486757331, 2.6945641623494 49.066085782592, 2.7627620257521 49.210633392908, 2.8310558873915 49.355042910156, 2.8997521198674 49.49941824321, 2.968909638669 49.643862654588, 2.9727370636111 49.651766419347))'", 
+                'GeoFootprint': {'type': 'Polygon', 
+                                    'coordinates': [[[2.9727370636111, 49.651766419347], [1.6142723681857, 49.644430073461],
+                                                    [1.6415462250802, 48.657020775058], [2.5048211785032, 48.661614688744],
+                                                    [2.5585517480359, 48.776808709002], [2.6265410270281, 48.921486757331],
+                                                    [2.6945641623494, 49.066085782592], [2.7627620257521, 49.210633392908],
+                                                    [2.8310558873915, 49.355042910156], [2.8997521198674, 49.49941824321],
+                                                    [2.968909638669, 49.643862654588], [2.9727370636111, 49.651766419347]]]}}],
+                '@odata.nextLink': 'https://datahub.creodias.eu/odata/v1/Products?%24filter=contains%28Name%2C%27MSIL1C%27%29+and+ContentDate%2FStart+gt+2022-05-03T00%3A00%3A00.000Z+and+ContentDate%2FStart+lt+2022-06-03T00%3A10%3A00.000Z+and+OData.CSC.Intersects%28area%3Dgeography%27SRID%3D4326%3BPOLYGON+%28%282.329102+51.672555%2C+-7.250977+48.632909%2C+-1.845703+43.165123%2C+5.185547+41.771312%2C+9.140625+44.902578%2C+8.833008+49.239121%2C+2.329102+51.672555%29%29%27%29&%24orderby=ContentDate%2FStart&%24top=1&%24skip=1'}
+
+wekeo_api_data_page_2: {'@odata.context': '$metadata#Products',
+                'value': 
+                [{'@odata.mediaContentType': 'application/octet-stream',
+                'Id': '08210ac1-8fbb-5886-9eef-d241796acbfd', 
+                'Name': 'S2A_MSIL1C_20220503T105621_N0400_R094_T31UCQ_20220503T130002.SAFE', 
+                'ContentType': 'application/octet-stream', 
+                'ContentLength': 0, 
+                'OriginDate': '2022-05-03T17:34:03.046Z', 
+                'PublicationDate': '2022-05-03T17:38:36.598Z', 
+                'ModificationDate': '2022-05-03T17:38:36.598Z', 
+                'Online': True, 
+                'EvictionDate': '', 
+                'S3Path': '/eodata/Sentinel-2/MSI/L1C/2022/05/03/S2A_MSIL1C_20220503T105621_N0400_R094_T31UCQ_20220503T130002.SAFE', 
+                'Checksum': [], 
+                'ContentDate': {'Start': '2022-05-03T10:56:21.024Z', 'End': '2022-05-03T10:56:21.024Z'}, 
+                'Footprint': "geography'SRID=4326;POLYGON ((0.2309320629869 49.619596875011, 0.28537105179721 48.633031815358, 1.7751310377905 48.658518916383, 1.7505374049653 49.645980966545, 0.2309320629869 49.619596875011))'", 
+                'GeoFootprint': {'type': 'Polygon', 
+                                    'coordinates': [[[0.2309320629869, 49.619596875011], 
+                                                    [0.28537105179721, 48.633031815358],
+                                                    [1.7751310377905, 48.658518916383],
+                                                    [1.7505374049653, 49.645980966545],
+                                                    [0.2309320629869, 49.619596875011]]]}}],
+                }

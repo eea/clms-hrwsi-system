@@ -136,20 +136,20 @@ cython_debug/
 # Terraform stuff
 *.tfstate
 *.tfstate.backup
-HRWSI_system_deployment/provision/terraform/.terraform/
-HRWSI_system_deployment/provision/terraform/terraform.tfstate
-HRWSI_system_deployment/provision/terraform/terraform.tfstate.backup
-HRWSI_system_deployment/provision/terraform/terraform.tfvars
-HRWSI_system_deployment/provision/terraform/.terraform.lock.hcl
+HRWSI_System_deployment/provision/terraform/.terraform/
+HRWSI_System_deployment/provision/terraform/terraform.tfstate
+HRWSI_System_deployment/provision/terraform/terraform.tfstate.backup
+HRWSI_System_deployment/provision/terraform/terraform.tfvars
+HRWSI_System_deployment/provision/terraform/.terraform.lock.hcl
 
-HRWSI_system_deployment/provision/terraform/admin/.terraform/
-HRWSI_system_deployment/provision/terraform/admin/.terraform.lock.hcl
-HRWSI_system_deployment/provision/terraform/core/.terraform/
-HRWSI_system_deployment/provision/terraform/core/.terraform.lock.hcl
-HRWSI_system_deployment/provision/terraform/database/.terraform/
-HRWSI_system_deployment/provision/terraform/database/.terraform.lock.hcl
-HRWSI_system_deployment/provision/terraform/buckets/.terraform/
-HRWSI_system_deployment/provision/terraform/buckets/.terraform.lock.hcl
+HRWSI_System_deployment/provision/terraform/admin/.terraform/
+HRWSI_System_deployment/provision/terraform/admin/.terraform.lock.hcl
+HRWSI_System_deployment/provision/terraform/core/.terraform/
+HRWSI_System_deployment/provision/terraform/core/.terraform.lock.hcl
+HRWSI_System_deployment/provision/terraform/database/.terraform/
+HRWSI_System_deployment/provision/terraform/database/.terraform.lock.hcl
+HRWSI_System_deployment/provision/terraform/buckets/.terraform/
+HRWSI_System_deployment/provision/terraform/buckets/.terraform.lock.hcl
 
 # SSH keys
 **/*id_rsa*

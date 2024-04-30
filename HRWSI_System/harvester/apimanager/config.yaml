@@ -1,0 +1,76 @@
+database:
+  dbname: "hrwsi_db"
+  user: "redacted"
+  password: "redacted"
+  host: "localhost"
+  port: 5432
+
+API:
+  url: "https://datahub.creodias.eu/odata/v1/Products"
+  image_per_page: 1000
+  max_retries: 3
+
+rabbitmq:
+  url: "amqp://username:rabbitmqmdp@10.0.0.186:5672/dev" # Adapt amqp://username:password@CONTROLLER_IP:5672/vhost 
+  exchange_name: "product_exchange"
+  exchange_type: "direct"
+  queue_name: "product_queue"
+  routine_key: "KEY"
+  heartbeat: 20
+  seconds_to_live_in_queue: 60
+  retry_policy:
+    interval_start: 10
+    interval_step: 10
+    interval_max: 30
+    max_retries: 30
+
+scheduling:
+  t_max: 900
+  cpu_max: 20
+  ram_max: 20
+  storage_space_max: 20
+  vm_max: 10
+  vm_name_list: ["worker-0","worker-1","worker-2","worker-3","worker-4","worker-5","worker-6","worker-7","worker-8","worker-9"]
+  vm_id_list: ["3b6c63a8-dab1-4edb-9072-80f945e07e99", "ada307e9-0aac-48df-aca4-cc039c5bc2ea", "4a89d9c4-a5a7-48d3-bfbf-dbef57e7b2fa",
+              "03a7aff3-ee7e-4e00-909d-b1b7a725478c", "dabf0ed2-27d9-4101-ab1c-d648933db499", "0d9dfb31-baca-4b0c-b049-184431fdde01",
+              "bdf68b3a-5f22-49c4-a4ca-3a8b88e6222f", "ac55a5b5-6e82-465f-abfb-fa947c50dfcf", "0e64e493-fc94-4fc6-b375-5c472052b544",
+              "4b4f7635-7955-4988-9b2e-1af12869d7d4"]
+
+wekeo_api_manager:
+  - processing_condition_name: "GRS_PC"
+    input_type: "MSIL1C"
+    max_day_since_publication_date: 7
+    max_day_since_measurement_date: 30
+    tile_list_file: "HRWSI_System/harvester/apimanager/tile_list.yaml"
+    geometry_file: "HRWSI_System/harvester/apimanager/geometry.yaml"
+
+hrwsi_database_api_manager:
+  - processing_condition_name: "TURB_PC"
+    max_day_since_publication_date: 7
+  
+  - processing_condition_name: "CHLA_PC"
+    max_day_since_publication_date: 7
+
+  - processing_condition_name: "SPM_PC"
+    max_day_since_publication_date: 7
+  
+  - processing_condition_name: "OWT_PC"
+    max_day_since_publication_date: 7
+
+  - processing_condition_name: "TSI_PC"
+    max_day_since_publication_date: 7
+
+harvester_waiting_time:
+  nb_of_second_between_each_notify_verification: 30
+  delta_seconds_max_between_notifications: 60
+  sleep_time_before_harvest_product: 10
+  sleep_time_to_wait_scheduling: 10
+
+launcher_waiting_time:
+  waiting_seconds: 30
+
+orchestrator_waiting_time:
+  seconds_before_clear_notification: 5
+
+day_since_creation_of_processing_task: 7
+

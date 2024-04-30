@@ -1,0 +1,80 @@
+# DATABASE DEPLOYMENT CI-CD PIPELINE FOR HR-WSI
+
+#~~~ VARIABLE
+# To be referenced through the script
+variables:
+  POSTGRES_DB: HRWSI_Database
+  POSTGRES_USER: redacted
+  POSTGRES_PASSWORD: redacted
+  PGRST_DB_URI: HRWSI_Database://redacted:redacted@database:5432/redacted
+  PGRST_DB_SCHEMA: hrwsi
+  PGRST_DB_ANON_ROLE: web_anonymous
+
+#~~~ STAGES
+# The stages of the CI-CD pipeline sorted in esecution order
+stages:
+  - setup_database
+  - test_database
+
+###### ACTUAL PIPELINE ######
+#~~~ Build and push database image on Magellium registry
+build database Docker image:
+  stage: setup_database
+  image:
+    name: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  rules:
+    - changes:
+      - HRWSI_Database/init_database/*.sql
+      - HRWSI_Database/update_database/*.sql
+      - HRWSI_Database/Dockerfile
+      - HRWSI_Database/.database_gitlab-ci.yml
+  script:
+    - docker login ${CI_REGISTRY} -p ${CI_REGISTRY_PASSWORD} -u ${CI_REGISTRY_USER}
+    - cd HRWSI_Database
+    - docker build -t "$CI_REGISTRY/eea_hr-wsi/nrt_production_system/hrwsi-database-dev:latest" .
+    - docker push "$CI_REGISTRY/eea_hr-wsi/nrt_production_system/hrwsi-database-dev:latest"
+    - docker build -t "$CI_REGISTRY/eea_hr-wsi/nrt_production_system/hrwsi-database-prod:latest" .
+    - docker push "$CI_REGISTRY/eea_hr-wsi/nrt_production_system/hrwsi-database-prod:latest"
+    
+#~~~ Run tests on database booted from Magellium registry
+Test database with docker-compose:
+  stage: test_database
+  # Official docker compose image.
+  image:
+    name: docker/compose:latest
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  rules:
+    - changes:
+      - HRWSI_Database/**/*.sql
+      - HRWSI_Database/Dockerfile
+      - HRWSI_Database/.database_gitlab-ci.yml
+      - HRWSI_Database/test_utils/*
+      - HRWSI_Database/tests/*
+  before_script:
+    - docker login ${CI_REGISTRY} -p ${CI_REGISTRY_PASSWORD} -u ${CI_REGISTRY_USER}
+    - cd HRWSI_Database/docker_compose_yml
+    - docker-compose -f docker-compose.CI.yml up -d
+  script:
+    - sleep 30
+    # Checking for the tests results
+    - docker cp HRWSI_Database_container:/home/hrwsi_db_tests.log .
+    - echo hrwsi_db_tests.log
+    - cat hrwsi_db_tests.log
+    - last_line=$(tail hrwsi_db_tests.log -n 1)
+    - last_four_characters=${last_line:(-4)}
+    - cd /builds/eea_hr-wsi/nrt_production_system/HRWSI_Database
+    - ./test_utils/hrwsi_result_test_checker.sh $last_four_characters
+  after_script:
+    - cd HRWSI_Database/docker_compose_yml
+    - docker-compose -f docker-compose.CI.yml down

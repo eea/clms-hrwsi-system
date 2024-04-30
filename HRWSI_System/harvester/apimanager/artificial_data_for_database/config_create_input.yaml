@@ -1,0 +1,27 @@
+tile_list: ['T08XMR','T08XNR','T09XVJ','T06XWR','T10XEP','T10XET','T11XMJ','T08XNS','T11XNL','T10XDQ',
+            'T08XMP','T07XEL','T07XDK','T10XES','T09XWL','T09XVK','T11XNJ','T12XVR','T10XER','T08XMQ',
+            'T07XEK','T09XWM','T10XEQ','T09XWJ','T11XMK','T09XVL','T10XDP','T08XNP','T07XDL','T09XWK',
+            'T12XVQ','T08XNQ','T07XEJ','T07XEM','T10XDR','T11XNM','T11XNK','T11XML','T06XWS','T59VLF',
+            'T01XDA','T59VNL','T02WMD','T59VPH','T60WVS','T60WWB','T59VLC','T60WVA','T59VML','T60WVT',
+            'T58UGE','T01WCV','T01WDU','T59VNK','T01WDT','T59WPS','T59VLE','T59WPU','T59WPN','T58VEK',
+            'T59VMC','T59VLK','T58VFN','T59WPT','T58UDG','T60WVV','T01WEV','T58UEF','T58UFF','T59WNN',
+            'T01WCR','T60VUN','T59WMM','T59WNR','T59ULV','T58UFG','T59WNQ','T60WVB','T60WWS','T01XCA',
+            'T59ULA','T59VLJ','T60WWV','T60XWF','T59WPR','T59VNG','T58VFL','T01WET','T60WWU','T59WNP',
+            'T58VFJ','T59VNE','T59WPP','T59VMJ','T59WPM','T60VVQ','T10WPM','T59UMA','T58VFH','T02WME']
+
+start_date: "2024-02-01 00:00:00"
+
+end_date: "2024-02-29 23:59:59"
+
+input_description:
+  - input_type: "MSIL1C"
+    pc:
+    - processing_condition: "MAJA_PC"
+      mission: "S2"
+      nb_input: 200
+
+  - input_type: "L2A"
+    pc: 
+    - processing_condition: "FSC_PC"
+      mission: "S2"
+      nb_input: 100

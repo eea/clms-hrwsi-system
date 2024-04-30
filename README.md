@@ -11,9 +11,9 @@ The entire system is deployed on virtual machines on WEkEO, an European DIAS.
 
 The project contains several directories:
 
-1. *[HRWSI_database](HRWSI_database)* : Everything related to NRT system database content, deployment and use.
-2. *[HRWSI_system](HRWSI_system)* : Everything related to NRT system Python core.
-3. *[HRWSI_system_deployment](HRWSI_system_deployment)* : Everything related to NRT system infrastructure provisioning, deployment and packaging, including network configuration, VMs, buckets, etc.
+1. *[HRWSI_Database](HRWSI_Database)* : Everything related to NRT system database content, deployment and use.
+2. *[HRWSI_System](HRWSI_System)* : Everything related to NRT system Python core.
+3. *[HRWSI_System_deployment](HRWSI_System_deployment)* : Everything related to NRT system infrastructure provisioning, deployment and packaging, including network configuration, VMs, buckets, etc.
 
 ## Third party software versions
 

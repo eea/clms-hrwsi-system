@@ -4,15 +4,24 @@ stages:
 trigger_provision:
   stage: triggers
   trigger:
-    include: HRWSI_system_deployment/provision/.provision_gitlab-ci.yml
+    include: HRWSI_System/.system_gitlab-ci.yml
   rules:
     - changes:
-        - HRWSI_system_deployment/provision/**/**/*
+        - HRWSI_System/**/**/*
+        - test/HRWSI_System/**/**/**/**/*
 
 trigger_database:
   stage: triggers
   trigger:
-    include: HRWSI_database/.database_gitlab-ci.yml
+    include: HRWSI_Database/.database_gitlab-ci.yml
   rules:
     - changes:
-        - HRWSI_database/**/**/*
+        - HRWSI_Database/**/**/*
+
+trigger_cloud_provision:
+  stage: triggers
+  trigger:
+    include: HRWSI_Deployment/provision/.provision_gitlab-ci.yml
+  rules:
+    - changes:
+        - HRWSI_Deployment/provision/**/*

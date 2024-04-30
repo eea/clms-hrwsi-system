@@ -1,0 +1,275 @@
+# PROVISIONING CI-CD PIPELINE FOR HRWSI
+
+#~~~ VARIABLE
+# To be referenced through the script
+variables:
+  TF_ROOT: HRWSI_Deployment/provision/terraform/
+  BUCKETS_TF_STATE_NAME: buckets-tfstate.tf
+  DATABASE_TF_STATE_NAME: database-tfstate.tf
+  JOB_SERVER_TF_STATE_NAME: job_server-tfstate.tf
+  SECURITY_GROUPS_TF_STATE_NAME: security-groups-tfstate.tf
+  CONTROLLER_AGENTS_TF_STATE_NAME: controler_agents-tfstate.tf
+  TERRAFORM_VERSION: 1.6.3
+  RC_FILE: HRWSI-NRT-SYS-openrc.sh
+  TF_VARS_FILE: project-variables.tfvars
+
+#~~~ ANCHORS
+
+# Terraform anchors definition to install openstack and terraform
+.prepare_terraform: &prepare_terraform
+  - cd ${TF_ROOT}
+  - source ${RC_FILE}
+  - python3 -m pip install python-openstackclient
+  - op_token_value="$( openstack token issue -f shell -c id | cut -d '=' -f 2 )"
+  - echo 'user-token = '$op_token_value >> ${TF_VARS_FILE}
+  - version=${TERRAFORM_VERSION}
+  - wget --quiet https://releases.hashicorp.com/terraform/${version}/terraform_${version}_linux_amd64.zip
+  - unzip terraform_${version}_linux_amd64.zip
+  - mv terraform /usr/bin/
+
+# Anchor definition to install jq
+.install_jq: &install_jq
+  - apt-get -qq update
+  - apt-get install -y jq
+
+# Terraform anchors definition to validate a Terraform project
+.validate_terraform: &validate_terraform
+  - terraform init
+  - terraform validate
+
+# Terraform anchors definition to apply a Terraform plan
+.apply_terraform: &apply_terraform
+  - terraform init
+  - terraform plan -var-file ../${TF_VARS_FILE}
+  - terraform apply -auto-approve -var-file ../${TF_VARS_FILE}
+
+# Terraform anchors definition to compute a Terraform plan and apply it, for core folder structure
+.apply_terraform_core: &apply_terraform_core
+  - terraform init
+  - terraform plan -var-file ../../${TF_VARS_FILE}
+  - terraform apply -auto-approve -var-file ../../${TF_VARS_FILE}
+
+# Terraform anchors definition to destroy a Terraform environment
+.destroy_terraform: &destroy_terraform
+  - terraform init
+  - terraform destroy -auto-approve -var-file ../${TF_VARS_FILE}
+
+# Terraform anchors definition to destroy a Terraform environment, for core folder structure
+.destroy_terraform_core: &destroy_terraform_core
+  - terraform init
+  - terraform destroy -auto-approve -var-file ../../${TF_VARS_FILE}
+
+#~~~ STAGES
+# The stages of the CI-CD pipeline sorted in esecution order
+stages:
+  - validate
+  - provisioning
+  - destroying
+
+###### ACTUAL PIPELINE ######
+#~~~ VALIDATE
+validate_buckets:
+  stage: validate
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd buckets
+    - *validate_terraform
+
+validate_database:
+  stage: validate
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd database
+    - *validate_terraform
+
+validate_job_server:
+  stage: validate
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/job_server
+    - *validate_terraform
+
+validate_secgroup:
+  stage: validate
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/controller_secgroup
+    - *validate_terraform
+
+validate_controller_agents:
+  stage: validate
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/controller_agents
+    - *validate_terraform
+
+#~~~ PROVISION AND DESTROY
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#~~~~~~~~~~~ BUCKETS ~~~~~~~~~~~#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+provisioning_buckets:
+  stage: provisioning
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd buckets
+    - *apply_terraform
+  resource_group: ${BUCKETS_TF_STATE_NAME}
+
+
+destroying_buckets:
+  stage: destroying
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd buckets
+    - *destroy_terraform
+  resource_group: ${BUCKETS_TF_STATE_NAME}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#~~~~~~~~~~ SECURITY-GROUPS-FOR-CORE ~~~~~~~~~~#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+provisioning_security_groups:
+  stage: provisioning
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - *install_jq
+    - cd core/controller_secgroup
+    - terraform init
+    - *apply_terraform_core
+  resource_group: ${SECURITY_GROUPS_TF_STATE_NAME}
+
+destroying_security_groups:
+  stage: destroying
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/controller_secgroup
+    - *destroy_terraform_core
+  resource_group: ${SECURITY_GROUPS_TF_STATE_NAME}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#~~~~~~~~~~~ JOB-SERVER ~~~~~~~~~#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+provisioning_job_server:
+  stage: provisioning
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/job_server
+    - *apply_terraform_core
+  resource_group: ${JOB_SERVER_TF_STATE_NAME}
+
+
+destroying_job_server:
+  stage: destroying
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/job_server
+    - *destroy_terraform_core
+  resource_group: ${JOB_SERVER_TF_STATE_NAME}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#~~~~~~~~~~~~ CONTROLLER-AGENTS ~~~~~~~~~~~~#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+provisioning_controller_agents:
+  stage: provisioning
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - *install_jq
+    - cd core/job_server
+    - terraform init
+    - JOB_SERVER_FLOATING_IP=$( terraform output -json job_server_floating_ip | jq -r '' )
+    - cd ../controller_agents
+    - sed -i "s/CONSUL_SERVER_IP/$JOB_SERVER_FLOATING_IP/" install_and_run_nomad_consul_client.sh
+    - *apply_terraform_core
+  resource_group: ${CONTROLLER_AGENTS_TF_STATE_NAME}
+
+destroying_controller_agents:
+  stage: destroying
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd core/controller_agents
+    - *destroy_terraform_core
+  resource_group: ${CONTROLLER_AGENTS_TF_STATE_NAME}
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#~~~~~~~~~~~ DATABASE ~~~~~~~~~~~#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+provisioning_database:
+  stage: provisioning
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - *install_jq
+    - cd core/job_server
+    - terraform init
+    - JOB_SERVER_FLOATING_IP=$( terraform output -json job_server_floating_ip | jq -r '' )
+    - cd ../../database
+    - sed -i "s/CONSUL_SERVER_IP/$JOB_SERVER_FLOATING_IP/" install_and_run_nomad_consul_client.sh
+    - *apply_terraform
+  resource_group: ${DATABASE_TF_STATE_NAME}
+
+
+destroying_database:
+  stage: destroying
+  when: manual
+  #only:
+  #  - main
+  image:
+    name: python:3.12
+  script:
+    - *prepare_terraform
+    - cd database
+    - *destroy_terraform
+  resource_group: ${DATABASE_TF_STATE_NAME}

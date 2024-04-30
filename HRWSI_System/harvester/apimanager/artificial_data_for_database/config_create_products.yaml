@@ -1,0 +1,7 @@
+product_type: [[1, 'MAJA_PC'], 
+              [2, 'FSC_PC']]
+
+processing_duration: "00:05:00"
+
+start_day_input: 20240201
+end_day_input: 20240229
