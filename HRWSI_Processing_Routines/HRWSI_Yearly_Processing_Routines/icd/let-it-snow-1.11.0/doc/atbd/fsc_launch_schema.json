@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "fsc_launch_schema.json",
+    "properties": {
+        "input_dir": {
+            "id": "input_dir",
+            "description": "Input directory containing L2A product or this directory as zip",
+            "type": "string"
+        },
+        "output_dir": {
+            "id": "output_dir",
+            "description": "Output directory containing LIS products",
+            "type": "string"
+        },
+        "dem": {
+            "id": "dem",
+            "description": "Auxiliary input : dem related to input product (with the same resolution and extent as the input image if preprocessing if desactivated)",
+            "type": "string"
+        },
+        "tcd": {
+            "id": "tcd",
+            "description": "Auxiliary input : tree cover density related to input product with the same resolution and extent as the input image (optional, only used for Sentinel-2)",
+            "type": "string"
+        },
+        "relief_shadow_mask": {
+            "id": "relief_shadow_mask",
+            "description": "Auxiliary input : hillshade related to input product with the same resolution and extent as the input image (optional)",
+            "type": "string"
+        },
+        "water_mask": {
+            "id": "water_mask",
+            "description": "Auxiliary input : water mask related to input product with the same resolution and extent as the input image (optional)",
+            "type": "string"
+        },
+        "log_level": {
+            "id": "log_level",
+            "description": "Log level : INFO, DEBUG, WARNING, ERROR (optional, default  is INFO",
+            "type": "string"
+        },
+        "config_file": {
+            "id": "config_file",
+            "description": "LIS configuration file - see fsc_config_schema.json",
+            "type": "string"
+        },
+        "chain_version": {
+            "id": "chain_version",
+            "description": "Hysope 2 chain version (optional, default is lis version)",
+            "type": "string"
+        },
+        "product_counter": {
+            "id": "product_counter",
+            "description": "Hysope 2 product counter (optional, default is 1)",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

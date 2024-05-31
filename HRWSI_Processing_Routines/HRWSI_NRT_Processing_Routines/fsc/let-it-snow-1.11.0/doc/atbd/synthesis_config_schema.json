@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "snow_annual_map_params",
+    "properties": {
+        "ram": {
+            "default": 4096,
+            "description": "Maximum number of RAM memory used by the program. (optional)",
+            "id": "ram",
+            "title": "The Ram schema.",
+            "type": "integer"
+        },
+        "nb_threads": {
+            "default": 1,
+            "description": "Maximum number of threads use by the program. (optional)",
+            "id": "nb_threads",
+            "title": "The Nb_threads schema.",
+            "type": "integer"
+        },
+        "output_dates_filename": {
+            "description": "Path to output_dates, containing all dates you want in the output. (optional, by default step between two dates is one day)",
+            "id": "output_dates_filename",
+            "title": "The output_dates_filename schema.",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

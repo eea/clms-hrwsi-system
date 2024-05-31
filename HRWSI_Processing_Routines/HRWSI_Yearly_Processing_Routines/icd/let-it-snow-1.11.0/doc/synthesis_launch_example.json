@@ -1,0 +1,19 @@
+{
+    "tile_id": "T31TCH",
+    "input_products_list": [
+        "XXX/SNOW_PRODUCTS/SENTINEL2A_20180101-105435-457_L2A_T31TCH_D_V1-4",
+        "XXX/SNOW_PRODUCTS/SENTINEL2A_20180131-105416-437_L2A_T31TCH_D_V1-4"
+    ],
+    "date_start": "01/01/2018",
+    "date_stop": "31/01/2018",
+    "output_dir": "XXX/SNOW_SYNTHESIS",
+    "config_file": "XXX/SNOW_SYNTHESIS/synthesis_configuration.json",
+    "date_margin": 10,
+    "densification_products_list": [
+        "XXX/SNOW_PRODUCTS/LANDSAT8-OLITIRS-XS_20180115-103629-617_L2A_T31TCH_D_V1-9",
+        "XXX/SNOW_PRODUCTS/LANDSAT8-OLITIRS-XS_20180131-103619-890_L2A_T31TCH_D_V1-9"
+    ],
+    "log_level": "INFO",
+    "chain_version": null,
+    "product_counter": null
+}

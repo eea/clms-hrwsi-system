@@ -1,0 +1,56 @@
+{
+    "general":{
+        "multi":10,
+        "mode": "S2",
+        "no_data":-10000,
+        "ram":1024,
+        "nb_threads":1,
+        "preprocessing":false
+         },
+    "vector":{
+        "generate_vector":true,
+        "generate_intermediate_vectors":false,
+        "use_gdal_trace_outline": true,
+        "gdal_trace_outline_dp_toler": 0,
+        "gdal_trace_outline_min_area":0
+    },
+    "cloud":{
+        "all_cloud_mask":1,
+        "high_cloud_mask":128,
+        "shadow_in_mask":32,
+        "shadow_out_mask":64,
+        "red_back_to_cloud":100,
+        "resize_factor":12,
+        "red_dark_cloud":300,
+        "strict_cloud_mask":false,
+        "rm_snow_inside_cloud":false,
+        "rm_snow_inside_cloud_dilation_radius": 5,
+        "rm_snow_inside_cloud_threshold": 0.85,
+        "rm_snow_inside_cloud_min_area": 250000
+    },
+    "snow":{
+        "dz":100,
+        "ndsi_pass1":0.4,
+        "red_pass1":200,
+        "ndsi_pass2":0.15,
+        "red_pass2":40,
+        "fsnow_lim":0.1,
+        "fsnow_total_lim":0.001,
+        "fclear_lim": 0.1
+    },
+    "fsc":{
+        "fscOg_Eq":"fscToc/(1-tcd)",
+        "fscToc_Eq": "0.5*tanh(2.65*ndsi-1.42)+0.5"
+    },
+    "shaded_snow": {
+        "detect_shaded_snow": true,
+        "hillshade_lim": 0.2,
+        "shaded_snow_pass": 160,
+        "rastertools_use": true,
+        "rastertools_window_size": 4096,
+        "rastertools_radius": null
+    },
+    "water_mask":{
+         "water_mask_raster_values":[1]
+    }
+}

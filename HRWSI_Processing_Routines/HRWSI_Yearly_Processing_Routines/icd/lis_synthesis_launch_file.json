@@ -1,0 +1,5 @@
+{
+    "ram": 4096,
+    "output_dates_filename": "output_dates.txt",
+    "nb_threads": "6"
+}

@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "snow_annual_map_params",
+    "properties": {
+        "log": {
+            "default": true,
+            "description": "Log output and error to files (std***.log). (mandatory)",
+            "id": "log",
+            "title": "The Log schema.",
+            "type": "boolean"
+        },
+        "log_stdout": {
+            "description": "Log output (std***.log). (optional, if not set, default is path_out/log_stdout.log)",
+            "id": "log_stdout",
+            "title": "The log_stdout schema.",
+            "type": "string"
+        },
+        "log_stderr": {
+            "description": "Log error (std***.log). (optional, if not set, default is path_out/log_sterr.log)",
+            "id": "log_stderr",
+            "title": "The log_stderr schema.",
+            "type": "string"
+        },
+        "mode": {
+            "default":"RUNTIME",
+            "description": "The processing mode to use, RUNTIME to obtain only output products faster, DEBUG to obtain all intermediate files (optional)",
+            "id": "mode",
+            "title": "The Mode schema.",
+            "type": "string"
+        },
+        "tile_id": {
+            "description": "The identifier of the tile corresponding to the input input_products_list products (mandatory)",
+            "id": "tile_id",
+            "title": "The Tile_id schema.",
+            "type": "string"
+        },
+        "input_products_list": {
+            "default": [],
+            "description": "The input products list, containing the paths of homogeneous snow products only on tile_id at same resolution and size (optional)",
+            "id": "input_products_list",
+            "title": "The input_products_list schema.",
+            "type": "list"
+        },
+        "path_tmp": {
+            "default":"",
+            "description": "The path where to store temporary files, else the application try to retrive $TMPDIR in env (optional)",
+            "id": "path_tmp",
+            "title": "The Path_tmp schema.",
+            "type": "string"
+        },
+        "use_densification": {
+            "default":"false",
+            "description": "Activate the densification using snow products from heterogeneous sensors (optional)",
+            "id": "use_densification",
+            "title": "The Use_densification schema.",
+            "type": "boolean"
+        },
+        "densification_products_list": {
+            "default": [],
+            "description": "The densification list, containing the paths of heterogenous snow products from heterogeneous sensors (optional)",
+            "id": "densification_products_list",
+            "title": "The densification_products_list schema.",
+            "type": "list"
+        },
+        "path_out": {
+            "description": "Path to output directory. (mandatory)",
+            "id": "path_out",
+            "title": "The Path_out schema.",
+            "type": "string"
+        },
+        "date_start": {
+            "description": "Start of the date range for which we want to generate the snow_annual_map (DD/MM/YYYY) (mandatory)",
+            "id": "date_start",
+            "title": "The Date_start schema.",
+            "type": "string"
+        },
+        "date_stop": {
+            "description": "Stop of the date range for which we want to generate the snow_annual_map (DD/MM/YYYY) (mandatory)",
+            "id": "date_stop",
+            "title": "The Date_stop schema.",
+            "type": "string"
+        },
+        "date_margin": {
+            "default": 15,
+            "description": "The margin ouside the date range to use for better interpolation results (in days) (optional)",
+            "id": "date_margin",
+            "title": "The Date_margin schema.",
+            "type": "string"
+        },
+        "ram": {
+            "default": 4096,
+            "description": "Maximum number of RAM memory used by the program. (optional)",
+            "id": "ram",
+            "title": "The Ram schema.",
+            "type": "integer"
+        },
+        "nb_threads": {
+            "default": 1,
+            "description": "Maximum number of threads use by the program. (optional)",
+            "id": "nb_threads",
+            "title": "The Nb_threads schema.",
+            "type": "integer"
+        },
+        "output_dates_filename": {
+            "description": "Path to output_dates, containing all dates you want in the output. (optional, by default step between two dates is one day)",
+            "id": "output_dates_filename",
+            "title": "The output_dates_filename schema.",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

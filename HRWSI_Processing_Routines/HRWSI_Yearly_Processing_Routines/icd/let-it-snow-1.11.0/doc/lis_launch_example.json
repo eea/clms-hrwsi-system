@@ -1,0 +1,12 @@
+{
+  "input_dir"           : "XXX/SENTINEL2A_20210415-105910-624_L2A_T30TYN_C_V2-2",
+  "output_dir"          : "XXX/output",
+  "dem"                 : "XXX/Copernicus_DSM/world.vrt",
+  "tcd"                 : "XXX/TCD_30TYN.tif",
+  "log"                 : "INFO",
+  "water_mask"          : "XXX/eu_hydro_20m_30TYN.tif",
+  "relief_shadow_mask"  : "XXX/hillshade.tif",
+  "config_file"         : "XXX/lis_configuration.json",
+  "chain_version"       : "1.7.1",
+  "product_counter"     : "1"
+}

@@ -1,0 +1,19 @@
+# automatic backup files #
+##########################
+*.json~
+*.sh~
+*.md~
+.gitignore~
+# Kile and LaTeX
+################
+*.backup
+doc/tex/*aux
+doc/tex/*log
+doc/tex/*out
+doc/tex/*toc
+doc/tex/_minted*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

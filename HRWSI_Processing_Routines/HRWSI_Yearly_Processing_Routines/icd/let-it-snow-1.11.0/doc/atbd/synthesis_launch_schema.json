@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://tully.ups-tlse.fr/grizonnet/let-it-snow/blob/master/test/param_test_s2_template.json",
+    "properties": {
+        "tile_id": {
+            "description": "The identifier of the tile corresponding to the input input_products_list products (mandatory)",
+            "id": "tile_id",
+            "title": "The Tile_id schema.",
+            "type": "string"
+        },
+        "input_products_list": {
+            "default": [],
+            "description": "The input products list, containing the paths of S2 snow products only on tile_id at same resolution and size",
+            "id": "input_products_list",
+            "title": "The input_products_list schema.",
+            "type": "list"
+        },
+        "densification_products_list": {
+            "default": [],
+            "description": "The densification products list, containing the paths of L8 snow products",
+            "id": "input_products_list",
+            "title": "The input_products_list schema.",
+            "type": "list"
+        },
+        "date_start": {
+            "description": "Start of the date range for which we want to generate the snow_annual_map (DD/MM/YYYY) (mandatory)",
+            "id": "date_start",
+            "title": "The Date_start schema.",
+            "type": "string"
+        },
+        "date_stop": {
+            "description": "Stop of the date range for which we want to generate the snow_annual_map (DD/MM/YYYY) (mandatory)",
+            "id": "date_stop",
+            "title": "The Date_stop schema.",
+            "type": "string"
+        },
+        "date_margin": {
+            "default": 15,
+            "description": "The margin outside the date range to use for better interpolation results (in days) (optional)",
+            "id": "date_margin",
+            "title": "The Date_margin schema.",
+            "type": "string"
+        },
+        "output_dir": {
+            "id": "output_dir",
+            "description": "Output directory containing LIS products",
+            "type": "string"
+        },
+        "log_level": {
+            "id": "log_level",
+            "description": "Log level : INFO, DEBUG, WARNING, ERROR",
+            "type": "string"
+        },
+        "config_file": {
+            "id": "config_file",
+            "description": "LIS configuration file - see synthesis_config_schema.json",
+            "type": "string"
+        },
+        "chain_version": {
+            "id": "chain_version",
+            "description": "Hysope 2 chain version (not mandatory)",
+            "type": "string"
+        },
+        "product_counter": {
+            "id": "product_counter",
+            "description": "Hysope 2 product counter (not mandatory)",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

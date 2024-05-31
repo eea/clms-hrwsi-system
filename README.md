@@ -14,6 +14,7 @@ The project contains several directories:
 1. *[HRWSI_Database](HRWSI_Database)* : Everything related to NRT system database content, deployment and use.
 2. *[HRWSI_System](HRWSI_System)* : Everything related to NRT system Python core.
 3. *[HRWSI_System_deployment](HRWSI_System_deployment)* : Everything related to NRT system infrastructure provisioning, deployment and packaging, including network configuration, VMs, buckets, etc.
+4. *[HRWSI_System_deployment](HRWSI_Processing_Routines)* : Everything code-wise related to the processing routines to be eecuted on the system's workers.
 
 ## Third party software versions
 

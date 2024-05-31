@@ -1,0 +1,11 @@
+{
+  "input_dir"           : "/opt/work/L2A",
+  "output_dir"          : "/opt/work/output",
+  "dem"                 : "/opt/work/32TLR/Copernicus_DSM_04_N02_00_00_DEM_20m_32TLR.tif",
+  "tcd"                 : "/opt/work/tcd/32TLR/TCD_2018_010m_eu_03035_V2_0_20m_32TLR.tif",
+  "log"                 : "INFO",
+  "water_mask"          : "/opt/work/water_mask/32TLR/WL_2018_20m_32TLR.tif",
+  "config_file"         : "/opt/work/config/lis_configuration.json",
+  "chain_version"       : "1.11.0",
+  "product_counter"     : "1"
+}

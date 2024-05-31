@@ -1,0 +1,7 @@
+{
+    "input_image_path": "path/to/L2A",
+    "classifier_path": "path/classifier_random_forest.pkl",
+    "slope_file_path" : "path/to/slope/file",
+    "water_mask_path" : "path/to/water/mask/file",
+    "output_WIC_dir" : "path/to/output/folder"
+}
